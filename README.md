@@ -19,6 +19,10 @@ reference : [커리큘럼 스프링과 JPA 기반 웹 애플리케이션 개발,
   * mail-sender
   * queryDSL
 
+## Git Branch 전략
+* main(=develop)
+  * feature1, feature2, ,,, 
+
 ## Things to think about
 현업에서 커뮤니티 서비스를 배포해야하는 상황이라고 가정하고, 내가 어떤 부분에 집중해서 개발해야하는지 체크해봅니다.
 * 
