@@ -4,34 +4,26 @@ reference : [커리큘럼 스프링과 JPA 기반 웹 애플리케이션 개발,
 * 프로젝트 시작일 : 10/16, 9:40PM 
 * 프로젝트 종료일 : tbd
 
-## 개발환경
-* maven
-* java 17
-* spring boot 3.3.4
-* library
-  * spring web
-  * spring-boot-devtools
-  * spring security
-  * h2 database
-  * postgresql
-  * lombok
-  * thymeleaf
-  * mail-sender
-  * queryDSL
+## Feature1 : 회원가입
+* Domain 개발
+* Controller 개발
 
-## Things to think about
-현업에서 커뮤니티 서비스를 배포해야하는 상황이라고 가정하고, 내가 어떤 부분에 집중해서 개발해야하는지 체크해봅니다.
-* 
+### 1. 도메인 개발
+Account 도메인에 필요한 데이터는 **DB에 저장할 필요가 있는지 에 대한 고민**부터 시작해야 합니다.
+* 로그인
+  * 이메일/닉네임/패스워드/검증절차(이메일 검증/토큰)/가입날짜(검증 완료 후)
+* 프로필
+  * 소개글/직업/url/거주지/프로필사진
+* 알림설정
+  * notice path(web or email)
 
-## Things to do
-부족하다고 생각되는 개념이나 잘못 알고 있었던 모든 것들을 빠짐없이 기재하기 바랍니다. 그리고 채워넣길 바랍니다.
-* 
+### 1-1. Work Flow  
+각 기능에서 필요로 하는 필드값을 명확하게 정의해야 합니다. 1)로그인 과정에서 email-checked 한다던가 2)프로필을 통해 보여주고자 하는 데이터 등이 포함되겠습니다.
 
-## Things I am doing
-배포일정 고려해서, 어떤 업무별로 시간이 많이 걸리는지 체크합니다. 향후 업무에 도움되길 바랍니다.
-* 강의시간 : 18시간 12분
-* 업무시간(*2) : 4.5일(=36시간) -> 일주일만에 끝내는 걸 목표로 얼마나 힘든지도 경험해봅니다.
+* 로그인할때 필요한 ID(unique)/PW
+* 검증된 회원인지 체크/토큰
+* 검증됐다면 가입날짜
+* 프로필 생성
+* 커뮤니티 관련 알림설정
 
 
-## Things I learned
-새롭게 알게 된 내용을 빠짐없이 기재하기 바랍니다.
