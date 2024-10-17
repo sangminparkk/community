@@ -1,11 +1,11 @@
-package com.studycommunity.request;
+package com.studycommunity.account;
 
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class AccountForm {
+public class SignUpForm {
 
     private String email;
 
