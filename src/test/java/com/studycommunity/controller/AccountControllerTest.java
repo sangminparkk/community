@@ -18,7 +18,7 @@ class AccountControllerTest {
     @Autowired
     MockMvc mockMvc;
 
-    @DisplayName("/sign-up GET 요청시 account/sign-up view를 렌더링한다") // 회원 가입 화면 보이는지 테스트
+    @DisplayName("회원 가입 화면 보이는지 테스트")
     @Test
     public void signUpForm() throws Exception {
         mockMvc.perform(get("/sign-up"))
