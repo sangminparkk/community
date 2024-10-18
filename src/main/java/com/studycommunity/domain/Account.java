@@ -10,6 +10,7 @@ import static lombok.AccessLevel.PROTECTED;
 
 @Entity
 @Getter @Setter @EqualsAndHashCode(of = "id")
+@Builder
 @NoArgsConstructor(access = PROTECTED)
 @AllArgsConstructor //TODO: 필요한 이유는? 굳이 필요할까? 체크해보기
 public class Account {
@@ -19,7 +20,7 @@ public class Account {
     private Long id;
 
     @Column(unique = true)
-    private String mail;
+    private String email;
 
     @Column(unique = true)
     private String nickname;
@@ -58,4 +59,6 @@ public class Account {
     private boolean studyUpdatedByEmail;
 
     private boolean studyUpdatedByWeb;
+
+
 }
