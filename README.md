@@ -36,6 +36,24 @@ GET("/sign-up") 요청시 view 페이지를 보여주는 컨트롤러를 개발�
 * security access 를 위한 config 설정
 * 테스트
 
+### 3. 회원가입 뷰
+어느정도 작업한 히스토리가 있으면 그걸 복붙해서 추가 디벨롭해도 될 부분이라고 생각합니다.
+
+### 3-1. Work Flow
+* view 기본 페이지 설정
+* css style 적용
+* 테스트 (model.attribute)
+
+### 3-2. 몰랐던 부분
+//TODO: Main README에 별도로 리스트업할 것
+* 부트스트랩 설정
+* dev-tools : 서버를 껐다가 켜지 않아도 build를 통해서 뷰 페이지 변경사항을 적용해줍니다.
+* Image 추가 : images 패키지에 저장하고, 정적 리소스에 대한 security 설정 추가 필요합니다.
+* model.addAttribute 관련 : 객체만 생성해서 넘겨도 spring MVC에서 자동으로 camelCase로 변환해서 뷰로 전달합니다.
+
+
+
+
 
 
 
