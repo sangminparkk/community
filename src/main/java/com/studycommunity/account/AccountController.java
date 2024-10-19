@@ -18,7 +18,7 @@ public class AccountController {
 
     private final SignUpFormValidator signUpFormValidator;
 
-    @InitBinder
+    @InitBinder("signUpForm")
     public void initBinder(WebDataBinder binder) {
         binder.addValidators(signUpFormValidator);
     }
