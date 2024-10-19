@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 import static jakarta.persistence.GenerationType.IDENTITY;
 import static lombok.AccessLevel.PROTECTED;
@@ -60,5 +61,7 @@ public class Account {
 
     private boolean studyUpdatedByWeb;
 
-
+    public void generateEmailCheckToken() {
+        this.emailCheckedToken = UUID.randomUUID().toString();
+    }
 }
