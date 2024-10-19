@@ -45,12 +45,18 @@ reference : [커리큘럼 스프링과 JPA 기반 웹 애플리케이션 개발,
 
 
 ## Things I learned
-새롭게 알게 된 내용을 빠짐없이 기재하기 바랍니다.
+새롭게 알게 된 내용을 빠짐없이 기재하기 바랍니다. 아래 카테코리 기준으로 정리했습니다.
+* code
+* spring
+* view
+* performance
+* tools
+* tips
 
-### code
+## code
 * public method : 읽기 편하게 짜야 합니다. 디테일한 구현은 extract 기능으로 잡아줍니다.
 
-### spring
+## spring
 * model.addAttribute
   * 객체만 생성해서 넘겨도 spring MVC에서 자동으로 camelCase로 변환해서 뷰로 전달합니다.
   * @ModelAttribute : 복잡 객체를 파라미터로 받을때 생략해도 된다.
@@ -69,21 +75,21 @@ reference : [커리큘럼 스프링과 JPA 기반 웹 애플리케이션 개발,
 * JavaMailSender
   * SimpleMailMessage(수신자/제목/내용 설정)를 활용하여 메시지 생성 후 이메일 송부 기능을 지원합니다.
 
-### view
+## view
 * Image 추가 : images 패키지에 저장하고, 정적 리소스에 대한 시큐리티 설정이 필요합니다. (web.ignoring)
 * root page 설정 : resources/templates-index.html 을 기본적으로 루트 페이지로 설정함 (이걸 몰랐냐..심각하다)
 
 
-### Performance(성능)
+## Performance(성능)
 * Repository 단순 조회시 : **@Transactional(readOnly = true)** 적용
   * 성능 최적화(단순 조회의 경우, 변경 감지 로직 처리를 하지 않음) + 명확한 의도 전달
 
-### tools
+## tools
 * 부트스트랩 설정
 * dev-tools : 서버를 껐다가 켜지 않아도 build를 통해서 뷰 페이지 변경사항을 적용해줍니다.
 * `@Profile` : yml파일에 프로파일 액티브 설정해주면, 해당 어노테이션 적용된 클래스는 지정된 프로파일로 동작할때 스프링 빈에 등록되고 관리됩니다.
 
-### tips
+## tips
 * 메서드 네이밍
   * signUp -> signUpSubmit
 * 로그 찍어서 눈으로 확인하는 습관(@Slf4j)
