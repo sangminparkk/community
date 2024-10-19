@@ -44,25 +44,14 @@ GET("/sign-up") 요청시 view 페이지를 보여주는 컨트롤러를 개발�
 * css style 적용
 * 테스트 (model.attribute)
 
-### 3-2. 몰랐던 부분
-//TODO: Main README에 별도로 리스트업할 것
-* 부트스트랩 설정
-* dev-tools : 서버를 껐다가 켜지 않아도 build를 통해서 뷰 페이지 변경사항을 적용해줍니다.
-* Image 추가 : images 패키지에 저장하고, 정적 리소스에 대한 security 설정 추가 필요합니다.
-* model.addAttribute 관련 : 객체만 생성해서 넘겨도 spring MVC에서 자동으로 camelCase로 변환해서 뷰로 전달합니다.
-* root page 설정 : resources/templates-index.html 을 기본적으로 루트 페이지로 설정함 (이걸 몰랐냐..심각하다)
-
 ### 4. Form submit 검증
-진짜 처참하네. 애노테이션만 달줄 알고, 여기서 추가 기능 확장이 안됨. 어떻게 처리해아하는지. 심지어 @Valid 만 검증되면 별도의 테스트 코드는 안짜도 되는지도 모르겠네.. 현재 수준이 심각하다.. 밥이 넘어가고 운동을 하고 싶냐?
+데이터 유효성 검사는 굉장히 중요합니다. 데이터베이스에 쓰레기 값이 저장되면 안되기 때문에 항상 주의해야 합니다.
 
-회원 가입 폼 검증
-* JSR 303 애노테이션 검증 -> `바인딩되는 데이터에 대한 @Valid 처리` 를 할 수 있는가
-값의 길이, 필수값
-
-* 커스텀 검증
-중복 이메일, 닉네임 여부 확인 > 이건 아예 몰랐음.... implements Validator
-
-* 폼 에러 있을 시, 폼 다시 보여주기.
+* JSR 303 Bean Validation (@Valid)
+  * 값의 길이, 필수값 (필드검증)
+* 커스텀 검증([Validator](https://docs.spring.io/spring-framework/reference/core/validation/validator.html))
+  * 중복 이메일, 닉네임 여부 확인
+* 폼 에러 있을 시, 폼 다시 보여주기
 
 부족한점
 * 메서드 이름 : signUp -> signUpSubmit
@@ -74,18 +63,25 @@ GET("/sign-up") 요청시 view 페이지를 보여주는 컨트롤러를 개발�
 잘한점
 * 파라미터 validation 애노테이션 활용 잘했음
 
-내가 구현한 코드
-* 사실 기억에 남아서 떠올리면서 작업을 한 것이지, 고민의 흔적이 없어
-```java
-        List<FieldError> fieldErrors = bindingResult.getFieldErrors();
-        FieldError fieldError = fieldErrors.get(0);
-        String field = fieldError.getField();
-        String defaultMessage = fieldError.getDefaultMessage();
-        log.info("field = {}, defaultMessage = {} ", field, defaultMessage);
-```
-
 ### 3-1. Work Flow
-* 데이터 유효성 검사 @Valid
+* 데이터 유효성 검사
+  * `@Valid` : 클라이언트가 입력한 필드값에 대한 단순 검증 (형식적인 검증)
+  * `Validator` : 비지니스 로직에 따른 복잡한 검증 (DB를 참조하여 조작이 불가능한 실제 데이터와 비교, 신뢰성이 높은 검증)
+    * email / nickname duplicate check from DB (find보다는 exists로 구현하는게 목적에 부합하다고 생각함)
 * Errors O -> form 화면
 * Errors X -> DB 중복체크 -> DB 저장 (단방향 : service -> repository)
 * 최종 반환 : 리다이렉트 루트 (redirect:/)
+
+### 몰랐던 부분
+* `@Repository`: 데이터 접근 계층에서 예외 변환 기능을 활성화하고, 데이터베이스 관련 로직을 포함하는 클래스를 Spring Bean으로 등록.
+* `@Controller` : 프레젠테이션 계층에서 HTTP 요청을 처리하고, 뷰와 데이터를 반환하는 컨트롤러 클래스로 Spring MVC와 연동.
+* `@Service` : 비즈니스 로직을 처리하는 서비스 계층의 클래스를 명시하며, 이를 Spring Bean으로 등록하여 가독성을 높임.
+* Repository에 @Transactional(readOnly = true)을 붙이는 이유
+  * 성능 최적화 : 단순 조회의 경우, 변경 감지 로직 처리를 하지 않음
+  * 명확한 의도 전달 : 해당 트랜잭션이 단순 조회임을 분명히 함
+* `@Transactional` 알고 쓰자.
+  * 정의 : 데이터베이스 작업을 하나의 단위로 묶어서 처리할 때, 하나의 트랜잭션 범위 내에서 수행될 수 있도록 합니다.
+  * 레포지토리에 적용할때 : 단순 조회인 경우, 성능 최적화를 명확하게 전달
+  * 서비스에 적용할 때 : 비지니스 로직을 수행하면서 데이터 수정/삭제/추가 등 JPA 매커니즘(변경감지로직)에 의해 수행
+* `@InitBinder` : 바인딩 되는 객체에 대해서 선언될때마다 validator 작업을 자동으로 해줍니다.
+* `@Component` : 스프링 애플리케이션 컨텍스트가 관리하는 빈으로 등록 및 동작할 수 있도록 해줍니다.

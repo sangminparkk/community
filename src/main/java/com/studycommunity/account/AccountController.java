@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 @RequiredArgsConstructor
 public class AccountController {
 
+    private final SignUpFormValidator signUpFormValidator;
+
     @GetMapping("/sign-up")
     public String signUpForm(Model model) {
         model.addAttribute(new SignUpForm());
@@ -26,8 +28,12 @@ public class AccountController {
             return "account/sign-up";
         }
 
-        //TODO: 회원 가입 처러
+        signUpFormValidator.validate(signUpForm, errors);
+        if (errors.hasErrors()) {
+            return "account/sign-up";
+        }
 
+        //TODO: 회원 가입 처리
         return "redirect:/";
     }
 
