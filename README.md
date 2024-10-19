@@ -92,6 +92,12 @@ GET("/sign-up") 요청시 view 페이지를 보여주는 컨트롤러를 개발�
 * 인증 이메일 발송 
 * 처리 후 첫 페이지로 리다이렉트 (Post-Redirect-Get)
 
+### 5-1. Work Flow
+* 회원 정보 저장
+* 인증 이메일 발송
+  * 임시 토큰 발급 - UUID
+  * 이메일 발송 (JavaMailSender)
+
 ### 몰랐던 부분
 * password encoding 필요 -> token. 평문 저장시 굉장히 위험한 서비스. 고객 정보 유출됨. 아주 큰일남.
 * spring mail sender 가 어떻게 동작하는지 -> 이거 찾아서 공부할 것
