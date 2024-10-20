@@ -138,3 +138,49 @@ GET("/sign-up") 요청시 view 페이지를 보여주는 컨트롤러를 개발�
 * 각 계층의 본질에 집중하여 너무 많은 책임을 전가하지 않아야 합니다. 
 * 읽기 편해야 됩니다.
 * 끝으로 리팩토링이 다른 코드에 영향을 주지 않았다는 것을 증명하기 위해 지금까지의 테스트 코드 실행/PASS 확인
+
+### 6. 패스워드 인코딩
+보안에 민감한 정보는 양방향(암호화/복호화)를 할 필요가 없습니다. PW는 오직 단방향. 해싱을 하면 된다.
+test - 입력한 평문이 변환된 해시값과 일치하는지만 체크
+
+* bcrypt
+* 인증 이메일 발송
+* 처리 후 첫 페이지로 리다이렉트 (Post-Redirect-Get)
+
+### 5-1. Work Flow
+* 회원 정보 저장
+* 인증 이메일 발송
+  * 임시 토큰 발급 - UUID
+  * 이메일 발송 (JavaMailSender)
+
+
+해싱 알고리즘을 쓰는 이유
+* 대부분은 유저는 한가지 비밀번호를 여러 사이트에서 사용함 > 엄청 큰 문제임
+* PW 자체가 털리는건.. 은행 계좌번호 or 주식 계좌번호 등..
+* 해싱 : 문자열을 특정한 보안 알고리즘에 따라서 암호화한다. xf unkasdhfuaweikfhueawkrfhjeoaw 
+
+솔트를 쓰는 이유
+* 솔트 : 랜덤 바이트 ( pw+salt => 전혀 다른 값. salt 로 인해서 매번 해시값이 바뀜) 
+  * 해커가 dictionary attack. 이미 해시값들을 변환해놓고, PW를 유추함
+  * 그럼 어떻게 pw를 찾을 수 있는가?
+  * 나온결과에 해시값 자체를 salt 처럼 써서, 다시 해싱ㅂ해버리면 기본 평문이 나옴 > 알고리즘 특성상 원래 해시값이 나옵니다.
+
+
+Bcrypt 의 경우, 강도가 10 으로 설정함. 강도가 높아질수록 시간이 오래 걸림. 그만큼 해커들이 해킹하는데 힘들다는 얘기.
+오히려 느린게 장점인거죠.
+
+코드 접근방법이 완전히 틀림. 솔직히 몰랐고. 찾아봐도 몰랐음. 왜냐하면 AppConfig 로 설정해줘야했거든. 어떨때 AppConfig 로 구분해야하는지 몰랐다는거지
+
+
+```java
+// 나는 진짜 단순하게 service안에서 구현
+private Account saveNewAccount(SignUpForm signUpForm) {
+  // 대전제: 평문으로 저장하면 안됨
+  BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+  String encodedPassword = encoder.encode(signUpForm.getPassword());
+```
+
+```java
+
+
+```
