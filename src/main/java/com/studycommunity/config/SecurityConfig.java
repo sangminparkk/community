@@ -18,7 +18,7 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http.authorizeHttpRequests((request) ->
                         request
-                                .requestMatchers("/", "/sign-up").permitAll()
+                                .requestMatchers("/", "/sign-up", "/check-email-token").permitAll()
                                 .requestMatchers(GET, "/profile/*").permitAll()
                                 .anyRequest().authenticated())
                 .build();
