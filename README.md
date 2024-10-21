@@ -147,13 +147,6 @@ GET("/sign-up") 요청시 view 페이지를 보여주는 컨트롤러를 개발�
   * 저장된 패스워드가 평문 패스워드가 아닌지
   * 입력한 평문이 변환된 해시값과 일치하는지만 체크
 
-### 5-1. Work Flow
-* 회원 정보 저장
-* 인증 이메일 발송
-  * 임시 토큰 발급 - UUID
-  * 이메일 발송 (JavaMailSender)
-
-
 해싱 알고리즘을 쓰는 이유
 * 대부분은 유저는 한가지 비밀번호를 여러 사이트에서 사용함 > 엄청 큰 문제임
 * PW 자체가 털리는건.. 은행 계좌번호 or 주식 계좌번호 등..
@@ -172,15 +165,22 @@ Bcrypt 의 경우, 강도가 10 으로 설정함. 강도가 높아질수록 시�
 코드 접근방법이 완전히 틀림. 솔직히 몰랐고. 찾아봐도 몰랐음. 왜냐하면 AppConfig 로 설정해줘야했거든. 어떨때 AppConfig 로 구분해야하는지 몰랐다는거지
 
 
-```java
-// 나는 진짜 단순하게 service안에서 구현
-private Account saveNewAccount(SignUpForm signUpForm) {
-  // 대전제: 평문으로 저장하면 안됨
-  BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-  String encodedPassword = encoder.encode(signUpForm.getPassword());
-```
+### 7. 인증 메일 확인
+`인증` 절차가 필요한 이유 : 허위를 가려내 실제 서비스를 이용하는 고객들에게 알맞은 정보와 혜택을 제공하기 위함입니다.
 
-```java
+* GET "check-mail-token?token={}&email={}" 요청 처리
+  * 이메일이 정확하지 않은 경우에 대한 에러 처리
+  * 토큰이 정확하지 않은 경우에 대한 에러 처리
+  * 정확하게 입력됐을 경우 가입 완료 처리 
+    * 가입 일시
+    * 이메일 인증 여부 true 설정
 
+* view 
+  * 입력값 오류 시 alert 보여주기
+  * 입력값 정상(인증 완료) 처리 후 몇번째 사용자인지 보여주기
 
-```
+### 부족한점
+문제점 : GET 동작 방식에 대한 이해도가 낮다. 즉, GET Mapping을 통해 view 렌더링하는게 목적이고 model 객체에 담아서 데이터를 전달하는 사고과정이 필요했습니다.
+* @Valid 검증이 붙을 필요가 없습니다. 이유는 POST 에서 기 검증 완료
+* error 보여줄땐 model에 담아서 error 객체 꺼내서 쓰면 됩니다. (html 기준, th:if=${error})
+* 처음부터 너무 깊게 고민하면 코드를 잘 짤 수가 없습니다. 원하는 기능이 동작될 수 있도록 최대한 단순하게 설계하고, 테스트하고, 리팩토링(레이어 변경 등) 순으로 진행하면 좋을 것 같습니다.
