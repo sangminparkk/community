@@ -36,12 +36,13 @@ reference : [커리큘럼 스프링과 JPA 기반 웹 애플리케이션 개발,
 * 강의시간 : 18시간 12분
 * 업무시간(*2) : 4.5일(=36시간) -> 일주일만에 끝내는 걸 목표로 얼마나 힘든지도 경험해봅니다.
 
-| 날짜    | 업무                                      | 비고                    |
-|-------|-----------------------------------------|-----------------------|
-| 10/17 | entity / controller / view / test       | 여러테이블과의 연관관계 맵핑 X     |
-| 10/18 | form submit validation                  | DB 매칭 필요하므로 굉장히 중요    |
-| 10/19 | form submit process - business logic    | 임시토큰발급/인증 이메일 송부      |
-| 10/20 | form submit test code / passwordEncoder | 테스트 코드 작성이 불가능한 현재 수준 |
+| 날짜    | 업무                                        | 비고                   |
+|-------|-------------------------------------------|----------------------|
+| 10/17 | entity / controller / view / test         | 여러테이블과의 연관관계 맵핑 X    |
+| 10/18 | form submit validation                    | DB 매칭 필요하므로 굉장히 중요   |
+| 10/19 | form submit process - business logic      | 임시토큰발급/인증 이메일 송부     |
+| 10/20 | form submit test code / passwordEncoder   | 테스트 코드 작성이 불가능한 현재 수준 |
+| 10/21 | check email and token to complete sign up | 인증 이메일을 통한 회원 가입 완료  |
 
 
 ## Things I learned
@@ -75,10 +76,19 @@ reference : [커리큘럼 스프링과 JPA 기반 웹 애플리케이션 개발,
   * UUID를 사용해서 개발을 빠르게 진행할 수 있지만, 보안관점에서 고도화된 알고리즘으로 변경을 반드시 해야 합니다.
 * JavaMailSender
   * SimpleMailMessage(수신자/제목/내용 설정)를 활용하여 메시지 생성 후 이메일 송부 기능을 지원합니다.
+* `GET Mapping` 
+  * 기본적으로 view 렌더링에 목적이 있으며, model 객체에 데이터 바인딩 후 html에서 해당 데이터를 사용할 수 있습니다.
+  * 쿼리 파라미터를 받는 경우, `@RequestParam`을 생략할 수 있습니다.
+  * model.addAttribute() 를 통해 error를 넘길 수도 있고, 필드값을 넘길 수도 있습니다.
+  * 최종적으로 뷰 템플릿을 반환합니다. (ex. sign-up.html)
 
 ## view
 * Image 추가 : images 패키지에 저장하고, 정적 리소스에 대한 시큐리티 설정이 필요합니다. (web.ignoring)
 * root page 설정 : resources/templates-index.html 을 기본적으로 루트 페이지로 설정함 (이걸 몰랐냐..심각하다)
+* 입력값 오류 시 alert-danger
+* 텍스트 중간에 글자 혹은 숫자를 끼워넣고 싶은 경우, `span` 태그 사용
+  * <span th:text="${number}"></span>
+
 
 ## test code
 테스트 코드를 잘 짜기 위한 기본 전제는 **개발한 로직에 대한 이해도**가 높아야 합니다.  
@@ -118,5 +128,3 @@ reference : [커리큘럼 스프링과 JPA 기반 웹 애플리케이션 개발,
   * 맥락 (논리적으로 서술되어야 합니다.)
   * 각 계층의 본질에 집중하여 너무 많은 책임을 전가하지 않아야 합니다.
   * 끝으로 리팩토링이 다른 코드에 영향을 주지 않았다는 것을 증명하기 위해 지금까지의 테스트 코드 실행/PASS 확인
-
-
