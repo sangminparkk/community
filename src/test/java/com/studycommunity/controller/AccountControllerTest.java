@@ -13,6 +13,7 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.transaction.annotation.Transactional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -23,6 +24,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+@Transactional //TODO: 문제 없으려나
 @SpringBootTest
 @AutoConfigureMockMvc
 class AccountControllerTest {
@@ -117,4 +119,45 @@ class AccountControllerTest {
         assertNotNull(account.getEmailCheckedToken());
         assertTrue(passwordEncoder.matches("123456789", account.getPassword()));
     }
+
+    @DisplayName("인증 메일 확인 - 입력값 오류")
+    @Test
+    public void checkEmailToken_with_wrong_email() throws Exception {
+        mockMvc.perform(get("/check-email-token")
+                        .param("email", "email@email.com")
+                        .param("token", "rjieowehjirow"))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(view().name("account/checked-email"))
+                .andExpect(model().attributeExists("error"));
+    }
+
+    @DisplayName("인증 메일 확인 - 입력값 정상")
+    @Test
+    public void checkEmailToken_with_right_input() throws Exception {
+        //given
+        Account account = Account.builder()
+                .email("chandler@naver.com")
+                .nickname("chandler")
+                .password("123456789")
+                .build();
+
+        Account newAccount = accountRepository.save(account);
+        newAccount.generateEmailCheckToken();
+
+        //expected
+        mockMvc.perform(get("/check-email-token")
+                        .queryParam("email", newAccount.getEmail())
+                        .queryParam("token", newAccount.getEmailCheckedToken()))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(view().name("account/checked-email"))
+                .andExpect(model().attributeDoesNotExist("error"))
+                .andExpect(model().attributeExists("numberOfUser"))
+                .andExpect(model().attributeExists("nickname"));
+
+        assertTrue(newAccount.isEmailVerified());
+        assertNotNull(newAccount.getJoinedAt());
+    }
+
 }
