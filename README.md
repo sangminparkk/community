@@ -36,13 +36,14 @@ reference : [커리큘럼 스프링과 JPA 기반 웹 애플리케이션 개발,
 * 강의시간 : 18시간 12분
 * 업무시간(*2) : 4.5일(=36시간) -> 일주일만에 끝내는 걸 목표로 얼마나 힘든지도 경험해봅니다.
 
-| 날짜    | 업무                                        | 비고                   |
-|-------|-------------------------------------------|----------------------|
-| 10/17 | entity / controller / view / test         | 여러테이블과의 연관관계 맵핑 X    |
-| 10/18 | form submit validation                    | DB 매칭 필요하므로 굉장히 중요   |
-| 10/19 | form submit process - business logic      | 임시토큰발급/인증 이메일 송부     |
-| 10/20 | form submit test code / passwordEncoder   | 테스트 코드 작성이 불가능한 현재 수준 |
-| 10/21 | check email and token to complete sign up | 인증 이메일을 통한 회원 가입 완료  |
+| 날짜    | 업무                                       | 비고                            |
+|-------|------------------------------------------|-------------------------------|
+| 10/17 | entity / controller / view / test        | 여러테이블과의 연관관계 맵핑 X             |
+| 10/18 | form submit validation                   | DB 매칭 필요하므로 굉장히 중요            |
+| 10/19 | form submit process - business logic     | 임시토큰발급/인증 이메일 송부              |
+| 10/20 | form submit test code / passwordEncoder  | 테스트 코드 작성이 불가능한 현재 수준         |
+| 10/21 | check email and token to complete sign up | 인증 이메일을 통한 회원 가입 완료           |
+| 10/22 | login process                            | springContextHolder를 통한 자동로그인 |
 
 
 ## Things I learned
@@ -81,6 +82,10 @@ reference : [커리큘럼 스프링과 JPA 기반 웹 애플리케이션 개발,
   * 쿼리 파라미터를 받는 경우, `@RequestParam`을 생략할 수 있습니다.
   * model.addAttribute() 를 통해 error를 넘길 수도 있고, 필드값을 넘길 수도 있습니다.
   * 최종적으로 뷰 템플릿을 반환합니다. (ex. sign-up.html)
+* `@WithMockUser`
+  * Spring security가 적용된다면 테스트 환경에서 지원하는 기능 중 하나로 테스트 환경에서 SecurityContextHolder에 사용자 인증 정보를 자동으로 설정해줍니다.
+  * 인증된 사용자를 모킹해서 테스트를 수행하고, 결과적으로 인증이 필요한 테스트에 한해서 해당 어노테이션을 추가해주면 됩니다.
+
 
 ## view
 * Image 추가 : images 패키지에 저장하고, 정적 리소스에 대한 시큐리티 설정이 필요합니다. (web.ignoring)
