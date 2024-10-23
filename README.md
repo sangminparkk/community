@@ -199,3 +199,17 @@ Bcrypt 의 경우, 강도가 10 으로 설정함. 강도가 높아질수록 시�
 * 테스트 도중 발생한 에러 관련, **Authentication should not be null** 이슈를 해결해 가는 과정이 순탄하지 못했습니다.
 * **null이라는 건 초기화가 안됐다**라는 의미이고, 결국 테스트 환경에서 SecurityContextHolder 셋팅이 안됐다는 의미로 해석할 수 있습니다.
 * 이런 논리를 빠르게 캐치했다면 테스트 환경에서 인증된 사용자 정보를 모킹하는 `@WithMockUser` 로 빠르게 해결할 수 있었을 겁니다. 
+
+### 9. 인증 여부에 따른 view page 설정 -- issue
+* 문제 : spring-security thymeleaf 의 isAuthenticated 정상 동작하지 않음
+* 원인 : sign-up 이후 리다이렉트시 authority 가 변경됨 (ROLE_USER > ROLE_ANONYMOUS)
+* 해결 : 아직 찾지 못함..
+```thymeleafexpressions
+xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+<li class="nav-item" sec:authorize="!isAuthenticated()">
+    <a class="nav-link" href="#" th:href="@{/sign-up}">가입</a>
+</li>
+<li class="nav-item" sec:authorize="isAuthenticated()">
+    <a class="nav-link btn btn-outline-primary" th:href="@{/study}">스터디개설</a>
+</li>
+```
