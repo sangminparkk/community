@@ -208,8 +208,41 @@ Bcrypt 의 경우, 강도가 10 으로 설정함. 강도가 높아질수록 시�
 xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
 <li class="nav-item" sec:authorize="!isAuthenticated()">
     <a class="nav-link" href="#" th:href="@{/sign-up}">가입</a>
-</li>
+</li> 
 <li class="nav-item" sec:authorize="isAuthenticated()">
     <a class="nav-link btn btn-outline-primary" th:href="@{/study}">스터디개설</a>
 </li>
+```
+
+### 10. NPM - 프론트엔드 / 백엔드 라이브러리 분리
+고려사항 3가지
+* 빌드 / 빌드설정(pom.xml)
+  * 설정 관련, pom.xml 에서 읽어올 수 있도록 설정해줘야 합니다. 미설정시 뷰 참조가 깨지면서 화면이 제대로 보이지 않습니다.
+* 버전관리 : gitignore
+* security 설정 
+
+빌드과정
+```
+project\community\src\main\resources\static 에서 아래 작업 수행합니다.
+- npm init 
+// license(ISC) 를 제외하곤 크리티컬하지 않습니다. 다만, 해당 패키지를 사용함에 있어 권한과 제한 사항이 있는지 알기 위해 라이센스를 명시해야 합니다.
+// result: create package.json
+- npm install bootstrap
+- npm install jquery
+// dependencies : bootstrap
+```
+
+최종적으로 test 실행하면서 npm 을 build하는지 확인해보시면 됩니다. Application 실행해서 눈으로도 확인해주세요.
+```text
+[INFO] --- frontend:1.8.0:install-node-and-npm (install node and npm) @ community ---
+[INFO] Installing node version v4.6.0
+[INFO] Unpacking C:\Users\PSM\.m2\repository\com\github\eirslett\node\4.6.0\node-4.6.0-win-x64.zip into C:\DEV\00. project\community\src\main\resources\static\node\tmp
+[INFO] Copying node binary from C:\DEV\00. project\community\src\main\resources\static\node\tmp\node-v4.6.0-win-x64\node.exe to C:\DEV\00. project\community\src\main\resources\static\node\node.exe
+[INFO] Installed node locally.
+[INFO]
+[INFO] --- frontend:1.8.0:npm (npm install) @ community ---
+[INFO] Running 'npm install' in C:\DEV\00. project\community\src\main\resources\static
+[INFO] npm WARN package.json static@1.0.0 No description
+[INFO] npm WARN package.json static@1.0.0 No repository field.
+[INFO] npm WARN package.json static@1.0.0 No README data
 ```
