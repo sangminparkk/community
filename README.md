@@ -246,6 +246,13 @@ project\community\src\main\resources\static 에서 아래 작업 수행합니다
 [INFO] npm WARN package.json static@1.0.0 No repository field.
 [INFO] npm WARN package.json static@1.0.0 No README data
 ```
+* 추가작업
+  * Fontawesome 으로 아이콘 추가 (npm install font-awesome)
+  * jdenticon 으로 프로필 기본 이미지 생성하기(npm install jdenticon)
+  * 이메일 미인증 사용자에게 메세지 보여주기
+
+* 주의사항 
+  * 자바 스크립트의 경우에는 반드시 태그로 닫아야 로딩할 수 있습니다.
 
 ### 11. thymeleaf fragments
 주로 replace 사용하는 편입니다. 
