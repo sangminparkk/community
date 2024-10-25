@@ -246,3 +246,9 @@ project\community\src\main\resources\static 에서 아래 작업 수행합니다
 [INFO] npm WARN package.json static@1.0.0 No repository field.
 [INFO] npm WARN package.json static@1.0.0 No README data
 ```
+
+### 11. thymeleaf fragments
+주로 replace 사용하는 편입니다. 
+* th:replace : 기존 태그를 삭제하고 프래그먼트로 대체합니다.
+* th:insert : 기존 태그를 유지한 채 내용을 삽입합니다.
+
