@@ -259,3 +259,29 @@ project\community\src\main\resources\static 에서 아래 작업 수행합니다
 * th:replace : 기존 태그를 삭제하고 프래그먼트로 대체합니다.
 * th:insert : 기존 태그를 유지한 채 내용을 삽입합니다.
 
+### 12. 현재 인증된 사용자 정보 참조 
+* `@AuthenticationPrincipal` : 스프링 시큐리티에서 지원하는 어노테이션으로 현재 인증된 principal 을 참조할 수 있습니다.
+  * 익명인 경우에는 null 로 설정하고, 아닌 경우 account 프로퍼티(내부 정보)를 조회해서 설정할 수 있습니다.
+* `@CurrentUser` :  Account 타입을 받고 싶고, principal을 다이나믹하게 활용할 예정입니다.
+* `UserAccount` : account 프로퍼티를 담고 있는 일종의 어댑터 역할. 스프링 시큐리티에서 다루는 유저정보와 도메인에서 다루는 유저정보의 연결고리이며 principal 객체로 사용 가능
+
+### 에러
+* 문제 : 리다이렉트 이후 설정된 사용자 인증 정보가 변경됨 (ROLE_USER > ROLE_ANONYMOUS)
+* 에러 확인 : account을 디버깅으로 체크해서 SecurityContextHolder.getContext() 를 통해 조회
+* 개선 : FAIL. 지금 단계에서 찾을 수 없었음 (1 day)
+```java
+@Controller
+public class MainController {
+
+    @GetMapping("/") 
+    public String home(@CurrentUser Account account, Model model) {
+
+        if (account != null) { 
+            model.addAttribute(account);
+        }
+        return "index";
+    }
+}
+```
+* 관련 캡처
+![img.png](img.png)
