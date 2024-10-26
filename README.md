@@ -36,14 +36,18 @@ reference : [커리큘럼 스프링과 JPA 기반 웹 애플리케이션 개발,
 * 강의시간 : 18시간 12분
 * 업무시간(*2) : 4.5일(=36시간) -> 일주일만에 끝내는 걸 목표로 얼마나 힘든지도 경험해봅니다.
 
-| 날짜    | 업무                                       | 비고                            |
-|-------|------------------------------------------|-------------------------------|
-| 10/17 | entity / controller / view / test        | 여러테이블과의 연관관계 맵핑 X             |
-| 10/18 | form submit validation                   | DB 매칭 필요하므로 굉장히 중요            |
-| 10/19 | form submit process - business logic     | 임시토큰발급/인증 이메일 송부              |
-| 10/20 | form submit test code / passwordEncoder  | 테스트 코드 작성이 불가능한 현재 수준         |
-| 10/21 | check email and token to complete sign up | 인증 이메일을 통한 회원 가입 완료           |
-| 10/22 | login process                            | springContextHolder를 통한 자동로그인 |
+| 날짜    | 업무                                          | 비고                             |
+|-------|---------------------------------------------|--------------------------------|
+| 10/17 | entity / controller / view / test           | 여러테이블과의 연관관계 맵핑 X              |
+| 10/18 | form submit validation                      | DB 매칭 필요하므로 굉장히 중요             |
+| 10/19 | form submit process - business logic        | 임시토큰발급/인증 이메일 송부               |
+| 10/20 | form submit test code / passwordEncoder     | 테스트 코드 작성이 불가능한 현재 수준          |
+| 10/21 | check email and token to complete sign up   | 인증 이메일을 통한 회원 가입 완료            |
+| 10/22 | login process                               | springContextHolder를 통한 자동로그인  |
+| 10/23 | na                                          | 풀리지 않는 이슈 때문에 멘탈이 나감           |
+| 10/24 | na                                          | ↑                              |
+| 10/25 | na                                          | ↑                              |
+| 10/26 | login / logout supported by spring security | SecurityConfig를 통한 로그인/로그아웃 설정 |
 
 
 ## Things I learned
@@ -133,3 +137,11 @@ reference : [커리큘럼 스프링과 JPA 기반 웹 애플리케이션 개발,
   * 맥락 (논리적으로 서술되어야 합니다.)
   * 각 계층의 본질에 집중하여 너무 많은 책임을 전가하지 않아야 합니다.
   * 끝으로 리팩토링이 다른 코드에 영향을 주지 않았다는 것을 증명하기 위해 지금까지의 테스트 코드 실행/PASS 확인
+
+## Issue
+* No1 : redirect 이후 authority 변경되어 뷰 템플릿이 출력이 안되는 문제
+  * 원인 : ROLE_USER > ROLE_ANONYMOUS
+  * 상황 : 하기 캡처
+![img_1.png](img_1.png)
+  * 해결 : 아직 찾지 못함(3 days..)
+    * 시큐리티 설정에 의한 문제가 발생한 것으로 판단되며, API 문서를 정독해보고 문제를 찾아야할듯. 시간을 너무 많이 소요함..
