@@ -16,12 +16,19 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        return http.authorizeHttpRequests((request) ->
-                        request
-                                .requestMatchers("/", "/sign-up", "/check-email-token").permitAll()
-                                .requestMatchers(GET, "/profile/*").permitAll()
-                                .anyRequest().authenticated())
-                .build();
+        http.authorizeHttpRequests((request) ->
+                request
+                        .requestMatchers("/", "/sign-up", "/check-email-token").permitAll()
+                        .requestMatchers(GET, "/profile/*").permitAll()
+                        .anyRequest().authenticated());
+
+        http.formLogin(form -> form
+                .loginPage("/login").permitAll()); //  th:action="@{/login}" method="POST"
+
+        http.logout(logout -> logout
+                .logoutSuccessUrl("/"));
+
+        return http.build();
     }
 
     @Bean
