@@ -14,9 +14,10 @@
                 <p>
                     확인 후 다시 입력하시거나, <a href="#" th:href="@{/find-password}">패스워드 찾기</a> 를 이용하세요.
                 </p>
-
             </div>
-                <form role="form" action="#" th:action="@{/login}" method="POST">
+
+            <div>
+                <form role="form" action="#" th:action="@{/login}" method="POST" novalidate>
                     <div class="form-group mt-3">
                         <label class="form-label" for="username">이메일 또는 닉네임</label>
                         <input class="form-control" type="text" id="username" placeholder="your@email.com" aria-labelledby="emailHelp">
@@ -36,14 +37,17 @@
                         <button class="btn btn-primary" type="submit">로그인</button>
                     </div>
                     <small class="text-info">
-                        커뮤니티에 처음 오신거라면 <a th:href="@{/signup}">계정을 먼저 만드세요.</a>
+                        커뮤니티에 처음 오신거라면 <a th:href="@{/sign-up}">계정을 먼저 만드세요.</a>
                     </small>
                 </form>  <!-- /form -->
+            <div>
         </div>
 
     </div> <!-- /container -->
 
     <div th:replace="~{fragments.html :: footer}"> </div>
+
+    <div th:replace="~{fragments.html :: form-validation}"></div>
 
 </body>
 </html>

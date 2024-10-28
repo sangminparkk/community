@@ -12,7 +12,7 @@
             <h2>계정 만들기</h2>
         </div>
         <div>
-            <form role="form" action="#" th:action="@{/sign-up}" th:object="${signUpForm}" method="POST">
+            <form role="form" action="#" th:action="@{/sign-up}" th:object="${signUpForm}" method="POST" novalidate>
                 <div class="form-group mt-3">
                     <label class="form-label" for="nickname">닉네임</label>
                     <input class="form-control" type="text" id="nickname" th:field="*{nickname}" placeholder="닉네임을 입력해주세요" aria-labelledby="nicknameHelp"
@@ -46,5 +46,6 @@
 
     <div th:replace="~{fragments.html :: footer}"> </div>
 
+    <div th:replace="~{fragments.html :: form-validation}"></div>
 </body>
 </html>
