@@ -36,18 +36,20 @@ reference : [커리큘럼 스프링과 JPA 기반 웹 애플리케이션 개발,
 * 강의시간 : 18시간 12분
 * 업무시간(*2) : 4.5일(=36시간) -> 일주일만에 끝내는 걸 목표로 얼마나 힘든지도 경험해봅니다.
 
-| 날짜    | 업무                                          | 비고                             |
-|-------|---------------------------------------------|--------------------------------|
-| 10/17 | entity / controller / view / test           | 여러테이블과의 연관관계 맵핑 X              |
-| 10/18 | form submit validation                      | DB 매칭 필요하므로 굉장히 중요             |
-| 10/19 | form submit process - business logic        | 임시토큰발급/인증 이메일 송부               |
-| 10/20 | form submit test code / passwordEncoder     | 테스트 코드 작성이 불가능한 현재 수준          |
-| 10/21 | check email and token to complete sign up   | 인증 이메일을 통한 회원 가입 완료            |
-| 10/22 | login process                               | springContextHolder를 통한 자동로그인  |
-| 10/23 | na                                          | 풀리지 않는 이슈 때문에 멘탈이 나감           |
-| 10/24 | na                                          | ↑                              |
-| 10/25 | na                                          | ↑                              |
-| 10/26 | login / logout supported by spring security | SecurityConfig를 통한 로그인/로그아웃 설정 |
+| 날짜    | 업무                                         | 비고                                                                  |
+|-------|--------------------------------------------|---------------------------------------------------------------------|
+| 10/17 | entity / controller / view / test          | 여러테이블과의 연관관계 맵핑 X                                                   |
+| 10/18 | form submit validation                     | DB 매칭 필요하므로 굉장히 중요                                                  |
+| 10/19 | form submit process - business logic       | 임시토큰발급/인증 이메일 송부                                                    |
+| 10/20 | form submit test code / passwordEncoder    | 테스트 코드 작성이 불가능한 현재 수준                                               |
+| 10/21 | check email and token to complete sign up  | 인증 이메일을 통한 회원 가입 완료                                                 |
+| 10/22 | login process                              | springContextHolder를 통한 자동로그인                                       |
+| 10/23 | na                                         | 풀리지 않는 이슈 때문에 멘탈이 나감                                                |
+| 10/24 | na                                         | ↑                                                                   |
+| 10/25 | na                                         | ↑                                                                   |
+| 10/26 | login / logout supported by spring security | SecurityConfig를 통한 로그인/로그아웃 설정                                      |
+| 10/27 | na                                         | 쉬었음                                                                 |
+| 10/28 | 개발 중단                                      | spring security에 대한 이해도 부족으로 프로젝트 추가 진행 불가. 관련 지식 빠르게 습득 후 다시 개발 필요 |
 
 
 ## Things I learned
