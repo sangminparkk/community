@@ -295,3 +295,6 @@ public class MainController {
 * th:field="*{email}" 에 다른 파라미터도 받을 수 있는지, 무조건 단건 인줄 알았는데
 * POST "/login" 을 security가 알아서 binding data를 처리합니다.
   * 단, DB에 저장된 정보를 참조해서 인증해야함 > service implements `UserDetailsService` 를 구헌해야 합니다.
+
+### 이슈
+* 로그인이 안됨..
